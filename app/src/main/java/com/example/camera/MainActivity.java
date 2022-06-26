@@ -13,17 +13,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Button viewImage,clickImage;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
+    ArrayList<Bitmap> list=new ArrayList<>();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
          imageBitmap = (Bitmap) extras.get("data");
+            list.add(imageBitmap);
         }
     }
 
@@ -47,10 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,GridActivity.class);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
-                intent.putExtra("Image",byteArray);
+              intent.putParcelableArrayListExtra("Bitmap",list);
                 startActivity(intent);
             }
         });
