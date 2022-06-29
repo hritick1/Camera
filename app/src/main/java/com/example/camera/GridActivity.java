@@ -1,6 +1,10 @@
 package com.example.camera;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,7 +21,7 @@ import java.util.ArrayList;
 
 public class GridActivity extends AppCompatActivity {
 
-    GridView gridView;
+    RecyclerView gridView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,17 +34,23 @@ public class GridActivity extends AppCompatActivity {
             list.add(new Data(bList.get(i),"Image-"+(i+1)));
 
         }
-        Adapter adapter=new Adapter(getApplicationContext(),list);
+        Adapter adapter=new Adapter(list,getApplicationContext());
+        gridView.setLayoutManager(new GridLayoutManager(this,2));
         gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent1=new Intent(GridActivity.this,ViewActivity.class);
-                intent1.putExtra("position",i);
-                intent1.putParcelableArrayListExtra("bitmap",bList);
-                startActivity(intent1);
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+                int itemPosition = gridView.indexOfChild(view);
+                
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+
             }
         });
+
+
 
     }
 }
