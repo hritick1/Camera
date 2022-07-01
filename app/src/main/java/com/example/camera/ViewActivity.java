@@ -22,9 +22,9 @@ ImageView imageView;
         imageView=findViewById(R.id.ImageView);
 
         Intent intent=getIntent();
-        int i=intent.getExtras().getInt("position");
-        ArrayList<Bitmap> list= intent.getParcelableArrayListExtra("bitmap");
-        textView.setText("Image-"+(i+1));
-        imageView.setImageDrawable(new BitmapDrawable(getApplicationContext().getResources(),list.get(i)));
+        String i=intent.getExtras().getString("name");
+       Bitmap bitmap=intent.getParcelableExtra("position");
+        textView.setText(i);
+        imageView.setImageDrawable(new BitmapDrawable(getApplicationContext().getResources(),bitmap));
     }
 }

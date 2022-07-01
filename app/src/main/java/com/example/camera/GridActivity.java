@@ -35,7 +35,7 @@ public class GridActivity extends AppCompatActivity {
 
         }
         Adapter adapter=new Adapter(list,getApplicationContext());
-        gridView.setLayoutManager(new GridLayoutManager(this,2));
+        gridView.setLayoutManager(new GridLayoutManager(this,3));
         gridView.setAdapter(adapter);
 
         

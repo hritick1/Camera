@@ -1,6 +1,7 @@
 package com.example.camera;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.items,parent,false);
+        View view=LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.items,parent,false);
         ViewHolder holder=new ViewHolder(view);
 
         return holder;
@@ -46,17 +47,29 @@ holder.imageView.setImageDrawable(new BitmapDrawable(context.getResources(), dat
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textView;
         ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             textView=itemView.findViewById(R.id.textView);
             imageView=itemView.findViewById(R.id.imageView);
 
         }
 
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent().setClass(context, ViewActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            int pos=this.getAdapterPosition();
+            Data data=list.get(pos);
+            i.putExtra("position",data.getBp());
+            i.putExtra("name",data.getName());
+// Launch the new activity and add the additional flags to the intent
+            context.startActivity(i);
+        }
     }
 
 
