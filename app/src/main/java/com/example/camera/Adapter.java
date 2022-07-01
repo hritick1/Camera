@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-    public Adapter(ArrayList<Data> list,  Context context) {
+
+
+    public Adapter(ArrayList<Data> list, Context context) {
         this.list = list;
         this.context=context;
     }
@@ -56,6 +58,8 @@ holder.imageView.setImageDrawable(new BitmapDrawable(context.getResources(), dat
         }
 
     }
+
+
 }
 
 

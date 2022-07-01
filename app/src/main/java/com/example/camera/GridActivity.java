@@ -37,20 +37,6 @@ public class GridActivity extends AppCompatActivity {
         Adapter adapter=new Adapter(list,getApplicationContext());
         gridView.setLayoutManager(new GridLayoutManager(this,2));
         gridView.setAdapter(adapter);
-        gridView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
-                int itemPosition = gridView.indexOfChild(view);
-                
-            }
 
-            @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
-
-            }
-        });
-
-
-
-    }
-}
+        
+}}
